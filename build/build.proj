@@ -202,18 +202,49 @@
 
   <!--
     ============================================================
+    Publish VSIX for VS14
+    ============================================================
+  -->
+  <Target Name="PublishVS14" Condition=" '$(IsXPlat)' != 'true' ">
+    <Message Text="Creating and publishing vsix for VS15" Importance="high" />
+
+    <MSBuild Projects="$(NuGetClientsSrcDirectory)NuGet.Tools\NuGet.Tools.csproj"
+             Targets="Build"
+             Properties="$(CommonMSBuildProperties);
+                         VisualStudioVersion=14.0;
+                         CreateVsix=true;" />
+  </Target>
+
+  <!--
+    ============================================================
     Publish VSIX for VS15
     ============================================================
   -->
   <Target Name="PublishVS15" Condition=" '$(IsXPlat)' != 'true' ">
     <Message Text="Creating and publishing vsix for VS15" Importance="high" />
 
-    <MSBuild Projects="$(SolutionFile)"
+    <MSBuild Projects="$(NuGetClientsSrcDirectory)NuGet.Tools\NuGet.Tools.csproj"
              Targets="Build"
              Properties="$(CommonMSBuildProperties);
                          VisualStudioVersion=15.0;
                          CreateVsix=true;" />
-  </Target>  
+  </Target>
+
+  <!--
+    ============================================================
+    Publish VSIX for VS15 Insertable
+    ============================================================
+  -->
+  <Target Name="PublishVS15Insertable" Condition=" '$(IsXPlat)' != 'true' AND ">
+    <Message Text="Creating and publishing vsix for VS15 Insertable" Importance="high" />
+
+    <MSBuild Projects="$(NuGetClientsSrcDirectory)NuGet.Tools\NuGet.Tools.csproj"
+             Targets="Build"
+             Properties="$(CommonMSBuildProperties);
+                         VisualStudioVersion=15.0;
+                         CreateVsix=true;
+                         IsInsertable=true;" />
+  </Target>
 
   <!--
     ============================================================
