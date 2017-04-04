@@ -295,7 +295,7 @@
   <!--
     ============================================================
     RunTestsOnProjects
-    Finds all test assemblies and allows Xunit to run them as 
+    Finds all test assemblies and allows Xunit to run them as
     efficiently as the xunit.runner.json settings allow.
     ============================================================
   -->
@@ -329,12 +329,13 @@
       <DesktopInputTestAssembliesSpaced>$(DesktopInputTestAssemblies.Replace(';', ' '))</DesktopInputTestAssembliesSpaced>
       <CoreInputTestAssemblies>@(TestAssemblyPath->WithMetadataValue("IsCore", "true"))</CoreInputTestAssemblies>
       <CoreInputTestAssembliesSpaced>$(CoreInputTestAssemblies.Replace(';', ' '))</CoreInputTestAssembliesSpaced>
-      
+
       <!-- Build exe commands -->
       <TestResultsHtml Condition=" '$(TestResultsFileName)' != '' ">$(TestResultsDirectory)$(TestResultsFileName).html</TestResultsHtml>
-      <VSTestCommand>$(DotnetExePath) vstest $(CoreInputTestAssembliesSpaced)</VSTestCommand>
+      <TestResultsXml Condition=" '$(TestResultsFileName)' != '' ">$(TestResultsDirectory)$(TestResultsFileName).xml</TestResultsXml>
+      <VSTestCommand>$(DotnetExePath) vstest $(CoreInputTestAssembliesSpaced) /logger:trx;LogFileName=vs$(TestResultsXml)</VSTestCommand>
       <DesktopTestCommand>$(XunitConsoleExePath) $(DesktopInputTestAssembliesSpaced)</DesktopTestCommand>
-      <DesktopTestCommand Condition=" '$(TestResultsHtml)' != '' ">$(DesktopTestCommand) -html $(TestResultsHtml)</DesktopTestCommand>
+      <DesktopTestCommand Condition=" '$(TestResultsXml)' != '' ">$(DesktopTestCommand) -nunit $(TestResultsXml)</DesktopTestCommand>
     </PropertyGroup>
 
     <!-- Desktop -->
