@@ -202,6 +202,21 @@
 
   <!--
     ============================================================
+    Publish VSIX for VS15
+    ============================================================
+  -->
+  <Target Name="PublishVS15" Condition=" '$(IsXPlat)' != 'true' ">
+    <Message Text="Creating and publishing vsix for VS15" Importance="high" />
+
+    <MSBuild Projects="$(SolutionFile)"
+             Targets="Build"
+             Properties="$(CommonMSBuildProperties);
+                         VisualStudioVersion=15.0;
+                         CreateVsix=true;" />
+  </Target>  
+
+  <!--
+    ============================================================
     Clean all
     ============================================================
   -->
