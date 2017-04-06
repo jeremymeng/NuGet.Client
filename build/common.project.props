@@ -21,7 +21,7 @@
     <NupkgOutputDirectory Condition=" '$(BuildRTM)' != 'true' ">$(ArtifactsDirectory)nupkgs\</NupkgOutputDirectory>
     <NupkgOutputDirectory Condition=" '$(BuildRTM)' == 'true' ">$(ArtifactsDirectory)ReleaseNupkgs\</NupkgOutputDirectory>
     <SolutionPackagesFolder>$(RepositoryRootDirectory)packages\</SolutionPackagesFolder>
-    <XunitConsoleExePath>$(SolutionPackagesFolder)xunit.runner.console.2.2.0\tools\xunit.console.x86.exe</XunitConsoleExePath>
+    <XunitConsoleExePath>$(SolutionPackagesFolder)xunit.runner.console.$(XunitVersion)\tools\xunit.console.x86.exe</XunitConsoleExePath>
     <ILMergeExePath>$(SolutionPackagesFolder)ILMerge.2.14.1208\tools\ILMerge.exe</ILMergeExePath>
     <EnlistmentRoot>$(RepositoryRootDirectory)</EnlistmentRoot>
     <EnlistmentRootSrc>$(RepositoryRootDirectory)\src</EnlistmentRootSrc>
@@ -93,7 +93,7 @@
   <PropertyGroup Condition=" '$(PreReleaseVersion)' == '' ">
     <PreReleaseVersion>0</PreReleaseVersion>
   </PropertyGroup>
-  
+
   <!--Setting the Pre-release/Build meta-data from CI if Version is set-->
   <PropertyGroup Condition="'$(BuildNumber)' != ''">
     <PreReleaseVersion>$(BuildNumber)</PreReleaseVersion>
@@ -125,7 +125,7 @@
     <!-- Create different folders for 14.0, 15.0, 15.0-RTM -->
     <BuildVariationFolder>$(VisualStudioVersion)</BuildVariationFolder>
     <BuildVariationFolder Condition=" '$(BuildRTM)' == 'true' ">$(BuildVariationFolder)-RTM</BuildVariationFolder>
-    
+
     <!-- output paths -->
     <BaseIntermediateOutputPath>$(ArtifactsDirectory)$(MSBuildProjectName)\$(BuildVariationFolder)\obj\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
@@ -133,7 +133,7 @@
     <OutputPath>$(BaseOutputPath)$(Configuration)\</OutputPath>
     <AppxPackageDir>$(OutputPath)</AppxPackageDir>
   </PropertyGroup>
-  
+
   <!-- Generate AssemblyFileVersion and AssemblyVersion attributes. -->
   <PropertyGroup Condition=" '$(IsNetCoreProject)' != 'true' ">
     <!-- Turn on dynamic assembly attribute generation -->

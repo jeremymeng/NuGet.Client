@@ -333,7 +333,7 @@
       <!-- Build exe commands -->
       <TestResultsHtml Condition=" '$(TestResultsFileName)' != '' ">$(TestResultsDirectory)$(TestResultsFileName).html</TestResultsHtml>
       <TestResultsXml Condition=" '$(TestResultsFileName)' != '' ">$(TestResultsDirectory)$(TestResultsFileName).xml</TestResultsXml>
-      <VSTestCommand>$(DotnetExePath) vstest $(CoreInputTestAssembliesSpaced) /logger:trx;LogFileName=vs$(TestResultsXml)</VSTestCommand>
+      <VSTestCommand>$(DotnetExePath) vstest $(CoreInputTestAssembliesSpaced) --logger:trx;LogFileName=vs$(TestResultsXml)</VSTestCommand>
       <DesktopTestCommand>$(XunitConsoleExePath) $(DesktopInputTestAssembliesSpaced)</DesktopTestCommand>
       <DesktopTestCommand Condition=" '$(TestResultsXml)' != '' ">$(DesktopTestCommand) -nunit $(TestResultsXml)</DesktopTestCommand>
     </PropertyGroup>
