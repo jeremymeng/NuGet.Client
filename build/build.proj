@@ -180,7 +180,8 @@
   <Target Name="BuildVS14" Condition=" '$(IsXPlat)' != 'true' ">
     <Message Text="Building for VS14" Importance="high" />
 
-    <MSBuild Projects="@(SolutionProjects)"
+    <MSBuild BuildInParallel="true"
+	         Projects="@(SolutionProjects)"
              Targets="Build"
              Properties="$(CommonMSBuildProperties);
                          VisualStudioVersion=14.0;" />
@@ -194,7 +195,8 @@
   <Target Name="BuildVS15" Condition=" '$(IsXPlat)' != 'true' ">
     <Message Text="Building for VS15" Importance="high" />
 
-    <MSBuild Projects="@(SolutionProjects)"
+    <MSBuild BuildInParallel="true"
+	         Projects="@(SolutionProjects)"
              Targets="Build"
              Properties="$(CommonMSBuildProperties);
                          VisualStudioVersion=15.0;" />
@@ -231,7 +233,7 @@
   <Target Name="Pack">
     <Message Text="Packing for VS15" Importance="high" />
 
-    <MSBuild BuildInParallel="false"
+    <MSBuild BuildInParallel="true"
              Projects="@(SolutionProjects)"
              Targets="PackProjects"
              Properties="$(CommonMSBuildProperties);
