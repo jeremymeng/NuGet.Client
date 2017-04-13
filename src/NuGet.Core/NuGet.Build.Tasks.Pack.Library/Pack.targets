@@ -272,7 +272,7 @@ Copyright (c) .NET Foundation. All rights reserved.
   <Target Name="_AddPriFileToPackBuildOutput"
           Returns="@(_PathToPriFile)">
     <ItemGroup Condition="'$(IncludeProjectPriFile)' == 'true'">
-      <_PathToPriFile Include="$(ProjectPriFullPath)">
+      <_PathToPriFile Include="$(ProjectPriFullPath)" Condition="Exists('$(ProjectPriFilePath)')">
         <FinalOutputPath>$(ProjectPriFullPath)</FinalOutputPath>
         <TargetPath>$(ProjectPriFileName)</TargetPath>
       </_PathToPriFile>
