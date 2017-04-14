@@ -20,7 +20,7 @@
       <SolutionProjects Include="$(RepositoryRootDirectory)src\*\*\*.csproj" />
   </ItemGroup>
 
-  <Target Name="AfterBuild">
+  <Target Name="BatchSign">
     <MSBuild
       Projects="@(SolutionProjects)"
       Targets="GetSigningInputs">
@@ -30,6 +30,20 @@
           ItemName="FilesToSign" />
     </MSBuild>
     <Message Text="Files to sign ----- @(FilesToSign)" Importance="High"/>
-  </Target>  
+  </Target>
+
+  <Target Name="BatchLocalize" Condition="'$(BuildRTM)' != 'true'">
+    <MSBuild
+      Projects="@(SolutionProjects)"
+      Targets="GetLocalizationInputs">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="FilesToLocalize" />
+    </MSBuild>
+    <Message Text="Files to localize ----- @(FilesToLocalize)" Importance="High"/>
+  </Target>
+
+  <Target Name="AfterBuild" DependsOnTargets="BatchLocalize;BatchSign"/>
   <Import Project="$(SolutionPackagesFolder)microbuild.core.0.2.0\build\MicroBuild.Core.targets" />
 </Project>
